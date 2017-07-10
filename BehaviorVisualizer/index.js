@@ -17,19 +17,39 @@ var width = 840;
 var height = 400;
 var len = 200;
 
-while (len--) {
-    var val = Math.floor(Math.random()*100);
-    max = Math.max(max, val);
+
     var point = {
-        x: Math.floor(Math.random()*width),
-        y: Math.floor(Math.random()*height),
-        value: val
+        x: 0,
+        y: 0,
+        value: 25
     };
     points.push(point);
-}
+
+var point = {
+    x: 800,
+    y: 0,
+    value: 50
+};
+points.push(point);
+
+var point = {
+    x: 0,
+    y: 400,
+    value: 75
+};
+points.push(point);
+
+var point = {
+    x: 800,
+    y: 400,
+    value: 100
+};
+points.push(point);
+
+
 // heatmap data format
 var data = {
-    max: max,
+    max: 100,
     data: points
 };
 // if you have a set of datapoints always use setData instead of addData

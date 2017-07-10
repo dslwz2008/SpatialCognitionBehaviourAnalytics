@@ -56,7 +56,12 @@ public class ExtractFeatures : MonoBehaviour {
                 float deltaAngleVertical = Mathf.Abs(angleView1Vertical - angleView2Vertical);
 
                 //第几行，是从1开始计数的
-                sw.WriteLine(string.Format("{0},{1},{2},{3}", i+1, deltaPos.ToString("F6"), deltaAngle.ToString("F6"),
+                sw.WriteLine(string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}", i+1, 
+                    curLine[0],curLine[1],curLine[2], 
+                    moveDir1.x, moveDir1.y, moveDir1.z,
+                    curLine[3], curLine[4], curLine[5],
+                    deltaPos.ToString("F6"), 
+                    deltaAngle.ToString("F6"),
                     (deltaAngleHorizontal+ deltaAngleVertical).ToString("F6")));
             }
             sw.Close();
