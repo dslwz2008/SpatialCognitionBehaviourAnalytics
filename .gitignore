@@ -35,3 +35,6 @@ sysinfo.txt
 
 # WebStorm
 .idea
+
+# Python notebook
+.ipynb_checkpoints
