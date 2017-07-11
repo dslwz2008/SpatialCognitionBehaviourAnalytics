@@ -5,53 +5,36 @@
  * Created Date : 2017/7/6.
  */
 // minimal heatmap instance configuration
-var heatmapInstance = h337.create({
-    // only container is required, the rest will be defaults
-    container: document.querySelector('.heatmap')
-});
-
-// now generate some random data
-var points = [];
-var max = 0;
-var width = 840;
-var height = 400;
-var len = 200;
-
-
-    var point = {
-        x: 0,
-        y: 0,
-        value: 25
-    };
-    points.push(point);
-
-var point = {
-    x: 800,
-    y: 0,
-    value: 50
+var config = {
+    container: document.querySelector('.heatmap'),
+    radius: 5,
+    blur: .75,
+    gradient: {
+        // enter n keys between 0 and 1 here
+        // for gradient color customization
+        '.0': 'blue',
+        '.5': 'green',
+        '1': 'red'
+    }
 };
-points.push(point);
 
-var point = {
-    x: 0,
-    y: 400,
-    value: 75
-};
-points.push(point);
+var heatmapInstance = h337.create(config);
 
-var point = {
-    x: 800,
-    y: 400,
-    value: 100
-};
-points.push(point);
-
+var width = 526;
+var height = 658;
+// var categories = ['GazeInPlace','Gaze'];
+// var categories = ['Gaze'];
+var categories = ['Scan'];
 
 // heatmap data format
-var data = {
-    max: 100,
-    data: points
-};
+var data = {max:0,data:[]};
+for(var indx in categories){
+    var category = categories[indx];
+    if(all[category].max > data.max)
+        data.max = all[category].max;
+    data.data = data.data.concat(all[category].data);
+}
+
 // if you have a set of datapoints always use setData instead of addData
 // for data initialization
 heatmapInstance.setData(data);
