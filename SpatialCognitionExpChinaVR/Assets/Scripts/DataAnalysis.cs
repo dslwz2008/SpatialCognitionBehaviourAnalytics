@@ -15,6 +15,7 @@ public class DataAnalysis : MonoBehaviour {
     public GameObject parent;
     private string vrDir;
     private string outputDir;
+    private string intersectPointsDir;
     private Dictionary<string, DataTable> dataDict = new Dictionary<string, DataTable>();
     private int selGridInt = 0;
     private Vector2 scrollPosition;
@@ -23,6 +24,7 @@ public class DataAnalysis : MonoBehaviour {
     void Awake() {
         vrDir = Application.streamingAssetsPath + "/VR";
         outputDir = Application.streamingAssetsPath + "/VROutput";
+        intersectPointsDir = Application.streamingAssetsPath + "/IntersectPoints";
         string [] files = Directory.GetFiles(vrDir,"*MainCamera*.txt");
         foreach (string filename in files)
         {
@@ -145,6 +147,7 @@ public class DataAnalysis : MonoBehaviour {
         List<Vector3> positions = new List<Vector3>();
         List<Vector3> intersectPositions = new List<Vector3>();
         StreamWriter sw = new StreamWriter(outputDir + "/" + key + ".csv", false, Encoding.UTF8);
+        StreamWriter swIntersection = new StreamWriter(intersectPointsDir + "/" + key + ".csv", false, Encoding.UTF8);
         for (int i = 0; i < dt.Rows.Count; i++)
         {
             DataRow row = dt.Rows[i];
@@ -174,8 +177,13 @@ public class DataAnalysis : MonoBehaviour {
             if (Physics.Raycast(vec, dir, out hit, 500f, layerMask))
             {
                 //Debug.Log(vec.ToString()+ hit.point.ToString());
+                //画出从位置点到相交点的线段
                 Debug.DrawLine(vec, hit.point, Color.blue, 1000, true);
                 intersectPositions.Add(hit.point);
+                //记录相交对象的tag和交点坐标
+                string intersectInfo = string.Format("{0},{1},{2},{3},{4},{5},{6}", hit.transform.tag, 
+                    hit.point[0], hit.point[1], hit.point[2], hit.normal[0], hit.normal[1], hit.normal[2]);
+                swIntersection.WriteLine(intersectInfo);
                 //创建相交节点
                 GameObject intersectGo = (GameObject)Instantiate(pointPrefab, hit.point,
                     Quaternion.identity);
@@ -185,6 +193,7 @@ public class DataAnalysis : MonoBehaviour {
             }
         }
         sw.Close();
+        swIntersection.Close();
         viewPath.SetVertexCount(intersectPositions.Count);
         viewPath.SetPositions(intersectPositions.ToArray());
         walkPath.SetVertexCount(positions.Count);

@@ -5,6 +5,20 @@ TagManager:
   serializedVersion: 2
   tags:
   - Building
+  - Spring
+  - Children
+  - BaoGaoTing
+  - TuShuGuan
+  - LuPai
+  - JiaoXueLou
+  - ShiZhuoDeng
+  - DiaoSu
+  - DaMen
+  - TiYuGuan
+  - Bounds
+  - TingZi
+  - QiQiu
+  - Tree
   layers:
   - Default
   - TransparentFX
